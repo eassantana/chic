@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chic! — Compra, Venda e Doação de Roupas Sustentáveis</title>
+    <meta name="description" content="Plataforma moderna de moda circular. Compre, venda e doe roupas de forma prática, elegante e sustentável. Crie sua própria loja!">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Link para o CSS principal -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <!-- Splash Screen / Loader -->
+    <div id="app-loader" class="loader-container">
+        <div class="spinner"></div>
+        <h1 class="logo-font loader-logo">Chic!</h1>
+        <p class="loader-text">Moda Circular & Sustentabilidade</p>
+    </div>
+
+    <!-- Header / Navbar Principal -->
+    <header class="main-header">
+        <div class="header-container">
+            <a href="#" class="logo" id="nav-logo">
+                <span class="logo-circle">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-logo"><path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/><path d="M12 2v8"/></svg>
+                </span>
+                <span class="logo-text">Chic!</span>
+            </a>
+
+            <!-- Navegação Desktop -->
+            <nav class="nav-links">
+                <button class="nav-btn active" data-view="home">Início</button>
+                <button class="nav-btn" data-view="explore">Explorar</button>
+                <button class="nav-btn" data-view="publish" id="nav-btn-publish">Publicar</button>
+                <button class="nav-btn" data-view="favorites" id="nav-btn-favorites">Favoritos</button>
+                <button class="nav-btn" data-view="chat" id="nav-btn-chat">Mensagens</button>
+                <button class="nav-btn" data-view="store" id="nav-btn-store">Minha Loja</button>
+            </nav>
+
+            <!-- Ações e Perfil -->
+            <div class="header-actions">
+                <!-- Tema Toggle -->
+                <button id="theme-toggle" class="icon-btn" aria-label="Alternar Tema">
+                    <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+
+                <!-- Botão de Autenticação / Menu de Usuário -->
+                <div id="user-menu-container">
+                    <button id="auth-trigger" class="btn btn-primary btn-sm">Entrar</button>
+                    <div id="user-profile-summary" class="profile-summary" style="display: none;">
+                        <span id="user-avatar" class="avatar-circle">U</span>
+                        <span id="user-name-display" class="user-display-name">Carregando...</span>
+                        <div class="user-dropdown-menu">
+                            <button class="dropdown-item" data-view="store">Ver Minha Loja</button>
+                            <hr>
+                            <button id="btn-logout" class="dropdown-item text-danger">Sair da Conta</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Menu Hamburguer Mobile -->
+                <button id="mobile-menu-toggle" class="icon-btn mobile-only" aria-label="Menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menu Lateral Mobile -->
+    <div id="mobile-sidebar" class="mobile-sidebar-overlay">
+        <div class="sidebar-content">
+            <div class="sidebar-header">
+                <h2 class="logo-font">Chic!</h2>
+                <button id="mobile-sidebar-close" class="icon-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="sidebar-link active" data-view="home">Início</button>
+                <button class="sidebar-link" data-view="explore">Explorar Roupas</button>
+                <button class="sidebar-link" data-view="publish">Publicar Peça</button>
+                <button class="sidebar-link" data-view="favorites">Favoritos</button>
+                <button class="sidebar-link" data-view="chat">Mensagens / Chat</button>
+                <button class="sidebar-link" data-view="store">Minha Loja</button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- MAIN SPA CONTAINER -->
+    <main class="app-main-content">
+
+        <!-- 1. VIEW HOME -->
+        <section id="view-home" class="spa-view active">
+            <!-- Hero Banner -->
+            <div class="hero-section">
+                <div class="hero-content">
+                    <span class="badge badge-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        Moda Sustentável & Circular
+                    </span>
+                    <h1>Renove seu guarda-roupa com consciência.</h1>
+                    <p>Conecte-se com pessoas para comprar roupas com preços justos, vender as peças que você não usa mais ou fazer doações incríveis.</p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary btn-lg" data-target-view="explore">Explorar Roupas</button>
+                        <button class="btn btn-outline btn-lg" data-target-view="publish">Vender ou Doar</button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <!-- Ilustração Estilizada do Guarda-roupa Inteligente em CSS -->
+                    <div class="wardrobe-visual">
+                        <div class="wardrobe-hanger"></div>
+                        <div class="wardrobe-item shirt-1"></div>
+                        <div class="wardrobe-item dress-1"></div>
+                        <div class="wardrobe-item jacket-1"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Como Funciona -->
+            <div class="section-container container-padding">
+                <div class="section-title-wrapper text-center">
+                    <h2 class="section-title">O Movimento Chic!</h2>
+                    <p class="section-subtitle">Descubra como nossa plataforma une moda, impacto social e economia circular.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon icon-gold">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                        </div>
+                        <h3>Desapegue e Crie sua Loja</h3>
+                        <p>Abra seu próprio brechó digital em minutos, configure seu banner e comece a faturar com suas roupas paradas.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-emerald">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z"/><path d="M12 6V3"/><path d="M12 21v-3"/><path d="M18.36 5.64l-2.12 2.12"/><path d="M7.76 16.24l-2.12 2.12"/><path d="M21 12h-3"/><path d="M6 12H3"/><path d="M18.36 18.36l-2.12-2.12"/><path d="M7.76 7.76L5.64 5.64"/></svg>
+                        </div>
+                        <h3>Doe Roupas com Facilidade</h3>
+                        <p>Separe peças inativas e faça a alegria de quem precisa. A modalidade Doação conecta doadores de forma direta.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-blue">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        </div>
+                        <h3>Negocie sem Intermediários</h3>
+                        <p>Utilize o nosso chat integrado para tirar dúvidas sobre as roupas, combinar a entrega e efetuar transações seguras.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Últimas Novidades / Peças em Destaque -->
+            <div class="section-container container-padding container-top-border">
+                <div class="section-header-flex">
+                    <div>
+                        <h2 class="section-title">Últimos Desapegos</h2>
+                        <p class="section-subtitle">Roupas recém-adicionadas na plataforma.</p>
+                    </div>
+                    <button class="btn btn-outline btn-sm" data-target-view="explore">Ver Todos</button>
+                </div>
+                <!-- Grid de Produtos Recentes -->
+                <div class="products-grid" id="recent-products-grid">
+                    <!-- Inserido dinamicamente via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. VIEW EXPLORAR -->
+        <section id="view-explore" class="spa-view">
+            <div class="explore-layout">
+                <!-- Painel de Filtros Lateral (Desktop) / Dropdown (Mobile) -->
+                <aside class="filter-sidebar">
+                    <div class="filter-header">
+                        <h3>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                            Filtros
+                        </h3>
+                        <button id="btn-clear-filters" class="text-btn">Limpar</button>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Tipo de Oferta</label>
+                        <div class="toggle-group-buttons">
+                            <button class="btn-toggle active" data-filter-type="all">Todos</button>
+                            <button class="btn-toggle" data-filter-type="sale">Vendas</button>
+                            <button class="btn-toggle" data-filter-type="donation">Doações</button>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="filter-category" class="filter-label">Categoria</label>
+                        <select id="filter-category" class="form-control">
+                            <option value="all">Todas as categorias</option>
+                            <option value="Camisas">Camisas & Camisetas</option>
+                            <option value="Calças">Calças & Shorts</option>
+                            <option value="Vestidos">Vestidos & Saias</option>
+                            <option value="Calçados">Calçados</option>
+                            <option value="Casacos">Casacos & Jaquetas</option>
+                            <option value="Acessórios">Acessórios</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label">Tamanho</label>
+                        <div class="sizes-filter-grid">
+                            <button class="size-btn-filter" data-size="PP">PP</button>
+                            <button class="size-btn-filter" data-size="P">P</button>
+                            <button class="size-btn-filter" data-size="M">M</button>
+                            <button class="size-btn-filter" data-size="G">G</button>
+                            <button class="size-btn-filter" data-size="GG">GG</button>
+                            <button class="size-btn-filter" data-size="XG">XG</button>
+                        </div>
+                    </div>
+
+                    <div class="filter-group" id="price-filter-wrapper">
+                        <label for="filter-max-price" class="filter-label">Preço Máximo (R$)</label>
+                        <div class="price-input-range">
+                            <input type="range" id="filter-max-price" min="0" max="500" step="10" value="500" class="range-slider">
+                            <div class="price-range-labels">
+                                <span>R$ 0</span>
+                                <span id="price-slider-value">R$ 500+</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Conteúdo de Resultados -->
+                <div class="explore-content">
+                    <!-- Barra de Busca -->
+                    <div class="search-bar-container">
+                        <div class="search-input-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <input type="text" id="search-input" placeholder="Buscar por jaquetas, calças, marcas, estilo...">
+                        </div>
+                        <button id="mobile-filter-trigger" class="btn btn-outline mobile-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                            Filtrar
+                        </button>
+                    </div>
+
+                    <!-- Informações de Resultados -->
+                    <div class="results-meta">
+                        <span id="results-count">Encontrando peças...</span>
+                        <div class="sort-selector">
+                            <label for="sort-select">Ordenar por:</label>
+                            <select id="sort-select" class="form-control-sm">
+                                <option value="newest">Novidades</option>
+                                <option value="price-asc">Menor Preço</option>
+                                <option value="price-desc">Maior Preço</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Grid Principal de Roupas -->
+                    <div class="products-grid" id="explore-products-grid">
+                        <!-- Inserido via JS -->
+                    </div>
+
+                    <!-- Mensagem sem resultados -->
+                    <div id="no-results" class="no-results-view" style="display: none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-4 text-muted"><circle cx="12" cy="12" r="10"></circle><path d="M8 15h8"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+                        <h3>Nenhuma peça encontrada</h3>
+                        <p>Tente ajustar os filtros ou digitar outros termos de busca.</p>
+                        <button class="btn btn-primary btn-sm mt-3" id="btn-reset-search-filters">Limpar Filtros</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. VIEW DETALHE DO PRODUTO -->
+        <section id="view-product-detail" class="spa-view">
+            <div class="back-link-wrapper">
+                <button class="btn-back" id="btn-back-product">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    Voltar
+                </button>
+            </div>
+            
+            <div class="product-detail-grid" id="product-detail-container">
+                <!-- Inserido dinamicamente via JS -->
+            </div>
+        </section>
+
+        <!-- 4. VIEW PUBLICAR -->
+        <section id="view-publish" class="spa-view">
+            <div class="form-container">
+                <div class="form-header text-center">
+                    <h2 class="logo-font">Desapegue!</h2>
+                    <p>Adicione fotos e especificações da roupa para cadastrá-la no app.</p>
+                </div>
+                
+                <form id="publish-form" class="chic-form">
+                    <!-- Drop Zone da Imagem -->
+                    <div class="form-group">
+                        <label class="form-label">Foto da Peça *</label>
+                        <div id="image-dropzone" class="image-dropzone">
+                            <input type="file" id="publish-image-input" accept="image/*" class="file-input-hidden">
+                            <div class="dropzone-placeholder" id="dropzone-placeholder">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-3 text-muted"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                <span>Arraste uma foto aqui ou <strong class="text-gold">Clique para enviar</strong></span>
+                                <span class="text-xs text-muted">Formatos aceitos: JPG, PNG. Tamanho máximo recomendado: 2MB</span>
+                            </div>
+                            <div class="dropzone-preview" id="dropzone-preview" style="display: none;">
+                                <img id="uploaded-image-preview" src="#" alt="Preview">
+                                <button type="button" id="btn-remove-image" class="btn-remove-img" aria-label="Remover imagem">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dados Básicos -->
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="publish-title" class="form-label">Título do Anúncio *</label>
+                            <input type="text" id="publish-title" required class="form-control" placeholder="Ex: Jaqueta Jeans Over-sized Vintage">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="publish-category" class="form-label">Categoria *</label>
+                            <select id="publish-category" required class="form-control">
+                                <option value="" disabled selected>Selecione uma categoria</option>
+                                <option value="Camisas">Camisas & Camisetas</option>
+                                <option value="Calças">Calças & Shorts</option>
+                                <option value="Vestidos">Vestidos & Saias</option>
+                                <option value="Calçados">Calçados</option>
+                                <option value="Casacos">Casacos & Jaquetas</option>
+                                <option value="Acessórios">Acessórios</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="publish-description" class="form-label">Descrição detalhada *</label>
+                        <textarea id="publish-description" rows="3" required class="form-control" placeholder="Detalhes sobre estado de conservação, tecido, cor, se possui avarias..."></textarea>
+                    </div>
+
+                    <div class="form-grid-3">
+                        <div class="form-group">
+                            <label for="publish-size" class="form-label">Tamanho *</label>
+                            <select id="publish-size" required class="form-control">
+                                <option value="" disabled selected>Escolha</option>
+                                <option value="PP">PP</option>
+                                <option value="P">P</option>
+                                <option value="M">M</option>
+                                <option value="G">G</option>
+                                <option value="GG">GG</option>
+                                <option value="XG">XG</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Objetivo *</label>
+                            <div class="radio-tab-container">
+                                <input type="radio" id="type-sale" name="publish-type" value="venda" checked class="radio-tab-input">
+                                <label for="type-sale" class="radio-tab-label">Venda</label>
+
+                                <input type="radio" id="type-donation" name="publish-type" value="doacao" class="radio-tab-input">
+                                <label for="type-donation" class="radio-tab-label">Doação</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="publish-price-group">
+                            <label for="publish-price" class="form-label">Preço (R$) *</label>
+                            <input type="number" id="publish-price" min="0" step="0.01" class="form-control" placeholder="0,00">
+                        </div>
+                    </div>
+
+                    <div class="form-actions-bar">
+                        <button type="submit" class="btn btn-primary btn-lg w-full">Publicar Desapego</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- 5. VIEW FAVORITOS -->
+        <section id="view-favorites" class="spa-view">
+            <div class="section-container">
+                <div class="section-title-wrapper">
+                    <h2>Seus Favoritos</h2>
+                    <p class="section-subtitle">Peças que você salvou para ver depois.</p>
+                </div>
+
+                <div class="products-grid" id="favorites-products-grid">
+                    <!-- Inserido dinamicamente via JS -->
+                </div>
+
+                <!-- Caso não tenha favoritos -->
+                <div id="no-favorites" class="no-results-view" style="display: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-4 text-muted"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    <h3>Você ainda não tem favoritos</h3>
+                    <p>Ao navegar pelo catálogo, clique no ícone de coração para salvar itens aqui.</p>
+                    <button class="btn btn-primary btn-sm mt-3" data-target-view="explore">Ver Peças</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. VIEW CHAT -->
+        <section id="view-chat" class="spa-view">
+            <div class="chat-layout">
+                <!-- Lista de Conversas (Esquerda) -->
+                <aside class="chat-sidebar">
+                    <div class="chat-sidebar-header">
+                        <h3>Mensagens</h3>
+                    </div>
+                    <div class="conversations-list" id="conversations-list">
+                        <!-- Inserido dinamicamente via JS -->
+                    </div>
+                </aside>
+
+                <!-- Box de Conversa Ativa (Direita) -->
+                <div class="chat-main">
+                    <div id="chat-active-state" style="display: none; height: 100%; display: flex; flex-direction: column;">
+                        <!-- Topo do Chat -->
+                        <div class="chat-main-header">
+                            <button id="chat-mobile-back" class="icon-btn mobile-only mr-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                            </button>
+                            <div class="chat-partner-info">
+                                <span id="chat-partner-avatar" class="avatar-circle avatar-sm">?</span>
+                                <div>
+                                    <h4 id="chat-partner-name">Nome do Vendedor</h4>
+                                    <span class="text-xs text-success" id="chat-partner-status">Online</span>
+                                </div>
+                            </div>
+                            <!-- Mini Card do Produto Linkado -->
+                            <div class="chat-product-preview" id="chat-product-link">
+                                <img id="chat-product-img" src="#" alt="Roupa">
+                                <div class="chat-product-details">
+                                    <span id="chat-product-title" class="text-xs font-semibold truncate">Calça Jeans</span>
+                                    <span id="chat-product-price" class="text-xs text-muted">R$ 50,00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Histórico de Mensagens -->
+                        <div class="chat-messages-box" id="chat-messages-box">
+                            <!-- Mensagens dinâmicas via JS -->
+                        </div>
+
+                        <!-- Input de Mensagens -->
+                        <form id="chat-input-form" class="chat-input-container">
+                            <input type="text" id="chat-message-input" placeholder="Digite sua mensagem..." autocomplete="off">
+                            <button type="submit" class="btn-send-msg">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Estado Vazio do Chat -->
+                    <div id="chat-empty-state" class="chat-empty-view">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-4 text-muted"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        <h3>Suas conversas</h3>
+                        <p>Selecione um chat ao lado ou entre em contato com algum anunciante para iniciar uma conversa.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. VIEW LOJA / PERFIL -->
+        <section id="view-store" class="spa-view">
+            <!-- Customização de Banner e Bio da Loja -->
+            <div class="store-header-banner" id="store-banner">
+                <div class="store-banner-actions">
+                    <button id="btn-edit-store" class="btn btn-glass btn-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                        Editar Loja
+                    </button>
+                </div>
+            </div>
+
+            <div class="store-profile-container">
+                <div class="store-profile-info">
+                    <div class="store-avatar-wrapper">
+                        <span id="store-profile-avatar" class="avatar-circle avatar-lg">U</span>
+                    </div>
+                    <div class="store-meta-details">
+                        <h2 id="store-name-display">Nome do Brechó</h2>
+                        <p id="store-bio-display" class="store-bio">Brechó pessoal sustentável. Roupas estilosas, conservadas e prontas para circular!</p>
+                        
+                        <!-- Dashboard de Reputação/Impacto -->
+                        <div class="store-impact-dashboard">
+                            <div class="impact-stat">
+                                <span class="impact-num" id="stat-total-items">0</span>
+                                <span class="impact-label">Itens</span>
+                            </div>
+                            <div class="impact-stat">
+                                <span class="impact-num text-success" id="stat-donations">0</span>
+                                <span class="impact-label">Doações Feitas</span>
+                            </div>
+                            <div class="impact-stat">
+                                <span class="impact-num text-gold" id="stat-rating">4.9 ★</span>
+                                <span class="impact-label">Avaliação</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Abas do Perfil/Loja -->
+            <div class="section-container mt-6">
+                <div class="store-tabs">
+                    <button class="store-tab active" data-tab="catalog">Catálogo de Peças</button>
+                    <button class="store-tab" data-tab="about">Sobre o Vendedor</button>
+                </div>
+
+                <!-- Conteúdo Aba Catálogo -->
+                <div id="store-tab-catalog-content" class="store-tab-pane active">
+                    <div class="products-grid" id="store-products-grid">
+                        <!-- Inserido dinamicamente via JS -->
+                    </div>
+                    <div id="store-empty-catalog" class="no-results-view" style="display: none;">
+                        <h3>Sua loja está vazia</h3>
+                        <p>Comece a divulgar suas roupas usadas agora mesmo!</p>
+                        <button class="btn btn-primary btn-sm mt-3" data-target-view="publish">Publicar Minha Primeira Peça</button>
+                    </div>
+                </div>
+
+                <!-- Conteúdo Aba Sobre -->
+                <div id="store-tab-about-content" class="store-tab-pane">
+                    <div class="about-card-container">
+                        <h3>Detalhes da Loja</h3>
+                        <p><strong>Membro desde:</strong> Julho de 2026</p>
+                        <p><strong>Reputação da Comunidade:</strong> Vendedor Verificado com foco em atendimento ágil e embalagem ecológica.</p>
+                        <div class="impact-banner">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-success mr-2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            <div>
+                                <h4>Impacto Ecológico da Loja</h4>
+                                <p class="text-sm">Ao vender e doar roupas, você evitou a emissão de aproximadamente <span class="font-bold text-success" id="store-carbon-saved">0 kg de CO₂</span> e o desperdício de água.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Chic! — Moda Circular e Economia Sustentável.</p>
+            <p class="text-xs text-muted">Projeto MVP desenvolvido para conectar desapegos, doações e empreendedorismo social.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL EDITAR PERFIL / LOJA -->
+    <div id="edit-store-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Editar Minha Loja</h3>
+                <button id="btn-close-edit-store" class="icon-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <form id="edit-store-form">
+                <div class="form-group">
+                    <label for="edit-store-name" class="form-label">Nome do Brechó *</label>
+                    <input type="text" id="edit-store-name" required class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="edit-store-bio" class="form-label">Descrição / Biografia</label>
+                    <textarea id="edit-store-bio" rows="3" class="form-control" placeholder="Fale um pouco sobre o estilo do seu brechó..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Cor de Fundo do Banner</label>
+                    <div class="color-picker-grid">
+                        <button type="button" class="color-swatch active" data-color="gradient-gold" style="background: linear-gradient(135deg, #2b1f1d, #4a3424);"></button>
+                        <button type="button" class="color-swatch" data-color="gradient-emerald" style="background: linear-gradient(135deg, #0f2b20, #154a32);"></button>
+                        <button type="button" class="color-swatch" data-color="gradient-purple" style="background: linear-gradient(135deg, #1f112e, #3a1c54);"></button>
+                        <button type="button" class="color-swatch" data-color="gradient-navy" style="background: linear-gradient(135deg, #0b1a30, #132d54);"></button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn-cancel-edit-store" class="btn btn-outline btn-sm">Cancelar</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE AUTENTICAÇÃO -->
+    <div id="auth-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="auth-modal-title">Entrar na Chic!</h3>
+                <button id="btn-close-auth" class="icon-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            
+            <!-- Formulário de Login -->
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email" class="form-label">E-mail *</label>
+                    <input type="email" id="login-email" required class="form-control" placeholder="exemplo@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="login-password" class="form-label">Senha *</label>
+                    <input type="password" id="login-password" required class="form-control" placeholder="Sua senha secreta">
+                </div>
+                <button type="submit" class="btn btn-primary w-full mt-2">Fazer Login</button>
+                <p class="auth-toggle-text text-center mt-3">Não tem conta? <button type="button" id="btn-switch-register" class="text-link">Cadastre-se</button></p>
+            </form>
+
+            <!-- Formulário de Registro -->
+            <form id="register-form" style="display: none;">
+                <div class="form-group">
+                    <label for="register-name" class="form-label">Nome Completo / Brechó *</label>
+                    <input type="text" id="register-name" required class="form-control" placeholder="Como quer ser chamado">
+                </div>
+                <div class="form-group">
+                    <label for="register-email" class="form-label">E-mail *</label>
+                    <input type="email" id="register-email" required class="form-control" placeholder="exemplo@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="register-password" class="form-label">Senha *</label>
+                    <input type="password" id="register-password" required class="form-control" placeholder="Mínimo 6 caracteres">
+                </div>
+                <button type="submit" class="btn btn-primary w-full mt-2">Criar Minha Conta</button>
+                <p class="auth-toggle-text text-center mt-3">Já tem uma conta? <button type="button" id="btn-switch-login" class="text-link">Faça Login</button></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- NOTIFICAÇÕES (TOASTS) -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Script de inicialização do app -->
+    <script src="app.js"></script>
+</body>
+</html>
